@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 client = MongoClient()
 
-db = client.stories
+db = client.Stories
 collection = db.stories
 
 app = Flask(__name__)
