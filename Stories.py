@@ -39,7 +39,7 @@ def render_story(id):
 		title = story["title"]
 		body_text = story["body_text"]
 		#Render the read story template with the json data
-		return render_template("story.html", title=title, body=body_text)
+		return render_template("story.html", title=title, body_text=body_text)
 	else:
 		render_404()
 
