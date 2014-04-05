@@ -56,6 +56,18 @@ def render_404():
 	"""
 	return render_template("404.html")
 
+#== Database Functions =====================================================#
+def writeDB(title, body_text, iid):
+	post = {"title": title,
+			"body_text": body_text,
+			"id": iid}
+	posts = db.posts
+	posts.insert(post)
+
+def readDB(iid):
+	posts = db.posts
+	return posts.find_one({"id": iid})
+
 def post_story():
 	"""
 	Function for inserting a story into the database.
@@ -75,18 +87,6 @@ def post_story():
 	writeDB(title, body_text, iid)
 	#Render the success page!
 	render_success(iid)
-
-#== Database Functions =====================================================#
-def writeDB(title, body_text, iid):
-	post = {"title": title,
-			"body_text": body_text,
-			"id": iid}
-	posts = db.posts
-	posts.insert(post)
-
-def readDB(iid):
-	posts = db.posts
-	return posts.find_one({"id": iid})
 
 #== Main Function ========================================================#
 if __name__ == "__main__":
