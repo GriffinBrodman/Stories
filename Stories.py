@@ -84,9 +84,9 @@ def post_story():
 
 	#Generate a "unique" id
 	iid = binascii.hexlify(os.urandom(4))
-	while (!readDB(iid)):
+	"""while (!readDB(iid)):
 		#If there is a collision, generate another id for the story
-		iid = binascii.hexlify(os.urandom(4))
+		iid = binascii.hexlify(os.urandom(4))"""
 
 	#Insert the story into the db
 	writeDB(title, body_text, iid)
