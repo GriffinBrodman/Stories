@@ -2,6 +2,8 @@
 from flask import Flask, render_template, request
 import json
 from pymongo import MongoClient
+import binascii
+import os
 
 client = MongoClient()
 
@@ -9,22 +11,22 @@ db = client.Stories
 collection = db.stories
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 #TODO: Replace with a valid url
-BASE_URL = "www.placeholderurl.com"
 
 #== Routes ===============================================================#
 @app.route("/", methods=['GET','POST'])
 def root():
 	#Render the editor on a GET request and insert to db on a POST request
 	if request.method == 'GET':
-		render_write()
+		return render_write()
 	else:
-		post_story()
+		return post_story()
 
 @app.route("/<id>")
-def story():
+def story(id):
 	#Given an id, render the mapped story. 404 if the story DNE.
-	render_story(id)
+	return render_story(id)
 
 #== Template Functions =====================================================#
 def render_write():
@@ -39,7 +41,8 @@ def render_story(id):
 	Function for rendering individual stories from the database.
 	"""
 	#Load the story from the database using the story id
-	story = json.loads(readDB(id))
+	story = readDB(id)
+	#Just in case...
 	if story:
 		#Store the json data into local variables
 		title = story["title"]
@@ -47,13 +50,13 @@ def render_story(id):
 		#Render the read story template with the json data
 		return render_template("story.html", title=title, body_text=body_text)
 	else:
-		render_404()
+		return render_404()
 
 def render_success(id):
 	"""
 	Function for rendering the success page (eventually do with AJAX)
 	"""
-	url = BASE_URL + id
+	url = id
 	return render_template("success.html", url)
 
 def render_404():
@@ -91,7 +94,7 @@ def post_story():
 	#Insert the story into the db
 	writeDB(title, body_text, iid)
 	#Render the success page!
-	render_success(iid)
+	return iid
 
 #== Main Function ========================================================#
 if __name__ == "__main__":
