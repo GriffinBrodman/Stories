@@ -1,0 +1,21 @@
+div{
+    font-family: "Times New Roman", Times, serif;
+    display: block;
+    text-align: center;
+}
+
+#title {
+    height: 100px;
+    width: 300px;
+    font-size: 30px;
+    text-align: left;
+    font-weight: bold;
+}
+
+#story {
+    height: 400px;
+    width: 600px;
+    font-size: 20px;
+    text-align: left;
+    font-style: italic;
+}
