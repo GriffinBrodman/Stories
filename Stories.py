@@ -3,10 +3,13 @@ from flask import Flask, render_template, request
 import json
 
 app = Flask(__name__)
+#TODO: Replace with a valid url
+BASE_URL = "www.placeholderurl.com"
 
 #== Routes ===============================================================#
 @app.route("/", methods=['GET','POST'])
 def root():
+	#Render the editor on a GET request and insert to db on a POST request
 	if request.method == 'GET':
 		render_write()
 	else:
@@ -14,6 +17,7 @@ def root():
 
 @app.route("/<id>")
 def story():
+	#Given an id, render the mapped story. 404 if the story DNE.
 	render_story(id)
 
 #== Template Functions =====================================================#
@@ -30,24 +34,47 @@ def render_story(id):
 	"""
 	#Load the story from the database using the story id
 	story = json.loads(readDB(id))
-	title = story["title"]
-	body_text = story["body_text"]
-	#Render the read story template with the query data
-	return render_template("story.html", title=title, body=body_text)
+	if story:
+		#Store the json data into local variables
+		title = story["title"]
+		body_text = story["body_text"]
+		#Render the read story template with the json data
+		return render_template("story.html", title=title, body=body_text)
+	else:
+		render_404()
+
+def render_success(id):
+	"""
+	Function for rendering the success page (eventually do with AJAX)
+	"""
+	url = BASE_URL + id
+	return render_template("success.html", url)
+
+def render_404():
+	"""
+	Function for rendering a 404 page
+	"""
+	return render_template("404.html")
 
 def post_story():
+	"""
+	Function for inserting a story into the database.
+	"""
+	#Put the post data into local variables
 	title = request.form['title']
 	body_text = request.form['body_text']
 	#Generate a "unique" id
 	iid = binascii.hexlify(os.urandom(4))
-	#TODO: Check DB if the id exists. If so, genereate a new id.
-	#while (readDB(iid)):
-	#	iid = binascii.hexlify(os.urandom(4))
-
+	"""
+	TODO: Check DB if the id exists. If so, genereate a new id.
+	-----------------------------------------------------------
+	while (readDB(iid)):
+		iid = binascii.hexlify(os.urandom(4))
+	"""
 	#Insert the story into the db
 	writeDB(title, body_text, iid)
 	#Render the success page!
-	render_success(id)
+	render_success(iid)
 
 #== Database Functions =====================================================#
 def writeDB(title, body_text, iid):
