@@ -1,6 +1,12 @@
 #== Top Matter ===========================================================#
 from flask import Flask, render_template, request
 import json
+from pymongo import MongoClient
+
+client = MongoClient()
+
+db = client.database_name
+collection = db.our_collection
 
 app = Flask(__name__)
 #TODO: Replace with a valid url
