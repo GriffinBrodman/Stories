@@ -56,26 +56,6 @@ def render_404():
 	"""
 	return render_template("404.html")
 
-def post_story():
-	"""
-	Function for inserting a story into the database.
-	"""
-	#Put the post data into local variables
-	title = request.form['title']
-	body_text = request.form['body_text']
-	#Generate a "unique" id
-	iid = binascii.hexlify(os.urandom(4))
-	"""
-	TODO: Check DB if the id exists. If so, genereate a new id.
-	-----------------------------------------------------------
-	while (readDB(iid)):
-		iid = binascii.hexlify(os.urandom(4))
-	"""
-	#Insert the story into the db
-	writeDB(title, body_text, iid)
-	#Render the success page!
-	render_success(iid)
-
 #== Database Functions =====================================================#
 def writeDB(title, body_text, iid):
 	post = {"title": title,
@@ -87,6 +67,25 @@ def writeDB(title, body_text, iid):
 def readDB(iid):
 	posts = db.posts
 	return posts.find_one({"id": iid})
+
+def post_story():
+	"""
+	Function for inserting a story into the database.
+	"""
+	#Put the post data into local variables
+	title = request.form['title']
+	body_text = request.form['body_text']
+
+	#Generate a "unique" id
+	iid = binascii.hexlify(os.urandom(4))
+	while (!readDB(iid)):
+		#If there is a collision, generate another id for the story
+		iid = binascii.hexlify(os.urandom(4))
+
+	#Insert the story into the db
+	writeDB(title, body_text, iid)
+	#Render the success page!
+	render_success(iid)
 
 #== Main Function ========================================================#
 if __name__ == "__main__":
