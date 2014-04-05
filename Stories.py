@@ -75,14 +75,13 @@ def post_story():
 	#Put the post data into local variables
 	title = request.form['title']
 	body_text = request.form['body_text']
+
 	#Generate a "unique" id
 	iid = binascii.hexlify(os.urandom(4))
-	"""
-	TODO: Check DB if the id exists. If so, genereate a new id.
-	-----------------------------------------------------------
-	while (readDB(iid)):
+	while (!readDB(iid)):
+		#If there is a collision, generate another id for the story
 		iid = binascii.hexlify(os.urandom(4))
-	"""
+
 	#Insert the story into the db
 	writeDB(title, body_text, iid)
 	#Render the success page!
