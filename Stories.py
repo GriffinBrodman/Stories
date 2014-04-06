@@ -1,14 +1,14 @@
 #== Top Matter ===========================================================#
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Markup
 import json
 from pymongo import MongoClient
 import binascii
 import os
+import markdown
 
 client = MongoClient()
 
 db = client.Stories
-collection = db.stories
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -56,8 +56,8 @@ def render_story(id):
 	#Just in case...
 	if story:
 		#Store the json data into local variables
-		title = story["title"]
-		body_text = story["body_text"]
+		title = Markup(story["title"])
+		body_text = Markup(story["body_text"])
 		#Render the read story template with the json data
 		return render_template("story.html", title=title, body_text=body_text)
 	else:
@@ -93,8 +93,8 @@ def post_story():
 	Function for inserting a story into the database.
 	"""
 	#Put the post data into local variables
-	title = request.form['title']
-	body_text = request.form['body_text']
+	title = markdown.markdown(request.form['title'])
+	body_text = markdown.markdown(request.form['body_text'])
 
 	#Generate a "unique" id
 	iid = binascii.hexlify(os.urandom(4))
