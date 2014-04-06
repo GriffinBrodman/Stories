@@ -1,5 +1,5 @@
 #== Top Matter ===========================================================#
-from flask import Flask, render_template, request, Markup
+from flask import Flask, render_template, request, Markup, jsonify
 import json
 from pymongo import MongoClient
 import binascii
@@ -93,8 +93,8 @@ def post_story():
 	Function for inserting a story into the database.
 	"""
 	#Put the post data into local variables
-	title = markdown.markdown(request.form['title'])
-	body_text = markdown.markdown(request.form['body_text'])
+	title = markdown.markdown(request.get_json()['title'])
+	body_text = markdown.markdown(request.get_json()['body_text']);
 
 	#Generate a "unique" id
 	iid = binascii.hexlify(os.urandom(4))
@@ -105,7 +105,7 @@ def post_story():
 	#Insert the story into the db
 	writeDB(title, body_text, iid)
 	#Render the success page!
-	return iid
+	return jsonify(id=iid)
 
 #== Main Function ========================================================#
 if __name__ == "__main__":

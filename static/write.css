@@ -67,4 +67,6 @@ button.formcontrol {
 
 #storyID {
     display: none;
+    margin-top: 1em;
+    width: 100%;
 }
