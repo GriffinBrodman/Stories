@@ -1,0 +1,50 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: Lato, Helvetica, sans-serif;
+    padding: 20px;
+    background: radial-gradient(rgba(255, 255, 255, 0), rgba(0, 10, 13, 0.4)),
+        url('./notebook_@2X.png');
+    background-attachment: fixed;
+}
+
+::selection {
+    background-color: #046380;
+    color: #FFFFFF;
+}
+
+::-moz-selection {
+    background-color: #046380;
+    color: #FFFFFF;
+}
+
+#logo a {
+    font-family: EB Garamond;
+    font-size: 3em;
+    text-decoration: none;
+    color: #046380;
+    /*transition: border-bottom 0.15s ease-in-out;*/
+    text-shadow: 1px 1px 2px;
+}
+
+/*
+#logo a:hover {
+    border-bottom: 3px solid;
+    border-radius: 2px;
+}
+*/
+
+#tagline {
+    font-family: EB Garamond;
+    font-style: italic;
+    color: #444444;
+}
+

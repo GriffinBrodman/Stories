@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="../static/read.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/common.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/read.css">
+    <script type="text/javascript" src="./jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="./stories.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato|EB+Garamond' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-
-    <img border="0" src="https://columbia.learningu.org/media/images/jh8x13.png">
-
-    <div id="title">{{title}}</div>
-    <div id="story">{{body_text}}</div>
-
+    <article>
+        <h1 id="logo"><a href="#">Stories</a></h1>
+        <h2 id="tagline">Write once, share everywhere</h2>
+        <section>
+		<h1 id="title">{{title}}</h1>
+            <section id="story">
+	        {{body_text}}
+            </section>
+        </section>
+    </article>
 </body>
 </html>

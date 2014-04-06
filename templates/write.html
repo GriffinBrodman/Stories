@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="../static/write.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/common.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/write.css">
+    <script type="text/javascript" src="./jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="./stories.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato|EB+Garamond' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-
-    <img border="0" src="https://columbia.learningu.org/media/images/jh8x13.png">
-
-    <form method="post">
-        <div id="title"> 
-            Share your story! <br> 
-            <input type="text" placeholder="Enter title" style="width:300px; height: 40px;"name="title">
-        </div>
-        <div id="story">
-            <textarea rows="25" cols="100" name="body_text"> </textarea>
-        </div>
-        <input type="submit" value="Submit">
-    </form>
-
+    <article>
+        <h1 id="logo"><a href="#">Stories</a></h1>
+        <h2 id="tagline">Write once, share everywhere</h2>
+        <input type="text" id="title" name="title" placeholder="Story Title">
+        <textarea id="story" placeholder="Write your story here. Markdown Supported!"></textarea>
+        <button class="formcontrol" id="submit">Get Link</button>
+        <textarea id="storyID"></textarea>
+    </article>
 </body>
 </html>
