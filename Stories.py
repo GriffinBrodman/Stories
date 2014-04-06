@@ -28,6 +28,17 @@ def story(id):
 	#Given an id, render the mapped story. 404 if the story DNE.
 	return render_story(id)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """Return a custom 404 error."""
+    return render_404()
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    """Return a custom 500 error."""
+    return 'Sorry, unexpected error: {}'.format(e), 500
+
 #== Template Functions =====================================================#
 def render_write():
 	"""
